@@ -1,3 +1,5 @@
-[All the content from the video course on playwright 🎭](youtube.com/user/basaratali)
+# Videos
+[Video course on playwright 🎭](youtube.com/user/basaratali)
 
-[Located in individual directories under src](./src).
+# Source Code
+[Individual lesson content under src](./src).
