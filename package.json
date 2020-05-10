@@ -1,0 +1,22 @@
+{
+  "name": "playwright-playbook",
+  "version": "1.0.0",
+  "description": "Playwright Playbook 🎭",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basarat/playwright-playbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basarat/playwright-playbook/issues"
+  },
+  "homepage": "https://github.com/basarat/playwright-playbook#readme",
+  "dependencies": {
+    "playwright": "1.0.1",
+    "ts-node": "8.10.1",
+    "typescript": "3.8.3"
+  }
+}
