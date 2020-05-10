@@ -12,7 +12,7 @@ async function main() {
 
     // Carry out actions
     await page.goto('http://whatsmyuseragent.org/');
-    await page.screenshot({ path: `output/example-${browserType.name}.png` });
+    await page.screenshot({ path: `output/example-${browserType.name()}.png` });
 
     // Close the browser
     await browser.close();
