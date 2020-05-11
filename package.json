@@ -2,6 +2,7 @@
   "name": "playwright-playbook",
   "version": "1.0.0",
   "description": "Playwright Playbook 🎭",
+  "main": "lib/index.js",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -18,5 +19,6 @@
     "playwright": "1.0.1",
     "ts-node": "8.10.1",
     "typescript": "3.8.3"
-  }
+  },
+  "devDependencies": {}
 }

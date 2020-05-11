@@ -2,5 +2,8 @@
 node_modules
 package-lock.json
 
+# Src output
+lib
+
 # Example outputs
 output
