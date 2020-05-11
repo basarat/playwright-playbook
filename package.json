@@ -1,9 +1,13 @@
 {
   "name": "playwright-playbook",
   "version": "1.0.0",
-  "description": "Playwright Playbook 🎭",
-  "main": "lib/index.js",
-  "scripts": {},
+  "description": "[Video course on playwright 🎭](http://youtube.com/user/basaratali)",
+  "main": "lib/lessons/index.js",
+  "scripts": {
+    "build:frontend": "webpack -d",
+    "serve:backend": "ts-node src/webapp/backend/server.ts",
+    "start": "npm run build:frontend && npm run serve:backend"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/basarat/playwright-playbook.git"
@@ -11,14 +15,26 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "private": true,
   "bugs": {
     "url": "https://github.com/basarat/playwright-playbook/issues"
   },
   "homepage": "https://github.com/basarat/playwright-playbook#readme",
   "dependencies": {
-    "playwright": "1.0.1",
-    "ts-node": "8.10.1",
-    "typescript": "3.8.3"
+    "playwright": "1.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/express": "4.17.6",
+    "@types/react": "16.9.35",
+    "@types/react-dom": "16.9.8",
+    "express": "4.17.1",
+    "express-basic-auth": "1.2.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "ts-loader": "7.0.4",
+    "ts-node": "8.10.1",
+    "typescript": "3.8.3",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.11"
+  }
 }
