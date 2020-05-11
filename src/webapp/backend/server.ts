@@ -5,9 +5,12 @@ import basicAuth from 'express-basic-auth';
 const app = express();
 
 // Auth example
-app.use('/auth', basicAuth({
-  users: { 'admin': 'supersecret' },
-}));
+app.use('/auth',
+  basicAuth({
+    users: { 'admin': 'supersecret' },
+  }),
+  (req, res) => res.send('Authenticated!')
+);
 
 // Static frontend
 app.use(express.static('public'));
