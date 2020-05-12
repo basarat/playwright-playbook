@@ -9,7 +9,7 @@ app.use('/auth',
   basicAuth({
     challenge: true,
     unauthorizedResponse: () => 'Unauthenticated!',
-    users: { 'admin': 'supersecret' },
+    users: { 'username': 'password' },
   }),
   (_req, res) => res.send('Authenticated!')
 );
