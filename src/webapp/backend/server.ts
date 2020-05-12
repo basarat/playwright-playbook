@@ -8,8 +8,9 @@ const app = express();
 app.use('/auth',
   basicAuth({
     users: { 'admin': 'supersecret' },
+    unauthorizedResponse: () => 'Unauthenticated!',
   }),
-  (req, res) => res.send('Authenticated!')
+  (_req, res) => res.send('Authenticated!')
 );
 
 // Static frontend
