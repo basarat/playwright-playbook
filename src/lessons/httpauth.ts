@@ -11,7 +11,7 @@ async function main() {
   const page = await context.newPage();
 
   // Provide http credentials
-  context.setHTTPCredentials({
+  await context.setHTTPCredentials({
     username: 'username',
     password: 'password'
   });
