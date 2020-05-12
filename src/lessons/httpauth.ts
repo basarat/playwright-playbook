@@ -15,6 +15,7 @@ async function main() {
     username: 'username',
     password: 'password'
   });
+  await context.setHTTPCredentials(null);
 
   // Carry out actions
   await page.goto('http://localhost:3000/auth');
