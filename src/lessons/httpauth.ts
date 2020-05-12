@@ -18,9 +18,5 @@ async function main() {
     password: 'password'
   });
   page.goto('http://localhost:3000');
-  page.screenshot({ path: 'output/screenshot.png' });
-
-  // Close the browser
-  await browser.close();
 }
 main();
