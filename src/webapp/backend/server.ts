@@ -7,8 +7,9 @@ const app = express();
 // Auth example
 app.use('/auth',
   basicAuth({
-    users: { 'admin': 'supersecret' },
+    challenge: true,
     unauthorizedResponse: () => 'Unauthenticated!',
+    users: { 'admin': 'supersecret' },
   }),
   (_req, res) => res.send('Authenticated!')
 );
