@@ -17,6 +17,6 @@ async function main() {
     username: 'username',
     password: 'password'
   });
-  page.goto('http://localhost:3000');
+  page.goto('http://localhost:3000/auth');
 }
 main();
