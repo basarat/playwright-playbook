@@ -4,9 +4,9 @@
   "description": "[Video course on playwright 🎭](http://youtube.com/user/basaratali)",
   "main": "lib/lessons/index.js",
   "scripts": {
-    "build:frontend": "webpack -d",
+    "serve:frontend": "webpack-dev-server -d",
     "serve:backend": "ts-node src/webapp/backend/server.ts",
-    "start": "npm run build:frontend && npm run serve:backend"
+    "start": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\""
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "@types/express": "4.17.6",
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
+    "concurrently": "5.2.0",
     "express": "4.17.1",
     "express-basic-auth": "1.2.0",
     "gls": "3.0.1",
@@ -37,6 +38,7 @@
     "typescript": "3.8.3",
     "typestyle": "2.1.0",
     "webpack": "4.43.0",
-    "webpack-cli": "3.3.11"
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "3.11.0"
   }
 }

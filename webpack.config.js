@@ -14,5 +14,17 @@ module.exports = {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
+  },
+  devServer: {
+    contentBase: __dirname + '/public',
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+      },
+      '/auth': {
+        target: 'http://localhost:9000',
+      }
+    }
   }
 }
