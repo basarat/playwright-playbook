@@ -31,10 +31,12 @@ api.use((req, res, next) => {
   else next();
 });
 api.post('/actions', (req, res) => {
+  console.log(req.body);
   if (!req.body.key) res.status(400).send({ error: 'Invalid request' });
-  else if (req.body.key !== 'secure') res.status(401).send({ error: 'Invalid key' });
+  else if (req.body.key !== 'playwright') res.status(401).send({ error: 'Invalid key' });
   else res.send(actions);
 });
+app.use('/api', api);
 
 // Start the server
 const port = 9000;
