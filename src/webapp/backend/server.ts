@@ -29,11 +29,8 @@ api.use(express.json());
 api.use((req, res, next) => {
   if (!req.body) res.status(400).send({ error: 'Invalid request' });
   else next();
-})
-api.get('/public', (req, res) => {
-  res.send(actions);
 });
-api.post('/secure', (req, res) => {
+api.post('/actions', (req, res) => {
   if (!req.body.key) res.status(400).send({ error: 'Invalid request' });
   else if (req.body.key !== 'secure') res.status(401).send({ error: 'Invalid key' });
   else res.send(actions);
