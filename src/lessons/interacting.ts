@@ -10,24 +10,21 @@ async function main() {
   const context = await browser.newContext();
   // Create a page
   const page = await context.newPage();
-
-  // Provide http credentials
-  await context.setHTTPCredentials({
-    username: 'username',
-    password: 'password'
-  });
-  await context.setHTTPCredentials(null);
-
+  
   // Carry out actions
-  const url = 'http://localhost:3000/auth';
+  const url = 'http://localhost:3000/actions';
   await page.goto(url);
 
-  // Evaulate something on page
-  const href = await page.evaluate(() => document.location.href);
-  assert.equal(url, href);
-
-  // Take a screenshot
-  await page.screenshot({ path: 'output/screenshot.png' });
+  // Interacting
+  await page.fill('#key', '');
+  await page.click('#load');
+  await page.screenshot({ path: 'output/invalid-request.png' });
+  await page.fill('#key', 'invalid key');
+  await page.click('#load');
+  await page.screenshot({ path: 'output/invalid-key.png' });
+  await page.fill('#key', 'playwright');
+  await page.click('#load');
+  await page.screenshot({ path: 'output/valid.png' });
 
   // Close the browser
   await browser.close();
