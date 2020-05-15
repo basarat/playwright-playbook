@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { base, Horizontal, Vertical } from 'gls';
-import { cssRaw } from 'typestyle';
+import { base, Horizontal, Vertical, Content } from 'gls';
+import { cssRaw, style } from 'typestyle';
 
 base('#root');
 cssRaw('body {font-family: Arial}');
@@ -26,12 +26,13 @@ const App: React.FC = () => {
     const body = await res.json();
     if (body.error) {
       setError(body.error);
-      return;
+    } else {
+      setActions(body);
     }
   }, [key, error]);
 
   return (
-    <Vertical padding={20}>
+    <Vertical padding={20} spacing={12}>
       <form onSubmit={e => {
         e.preventDefault();
         onLoadActions();
@@ -46,12 +47,17 @@ const App: React.FC = () => {
       </form>
       {
         actions.length != 0 &&
-        <Vertical>
+        <Vertical spacing={10}>
+          <h1 style={{ margin: 0 }}>Actions 🎭</h1>
           {actions.map(action => {
             return (
-              <Horizontal id={action.name}>
-                <img src={action.image} />
-                <div>{action.name}</div>
+              <Horizontal id={action.name} verticalAlign='center'>
+                <Content width={50} horizontalAlign='right'>
+                  <img src={action.image} className={style({ height: '40px' })} />
+                </Content>
+                <Content>
+                  <div id='action-name'>{action.name}</div>
+                </Content>
               </Horizontal>
             )
           })}
@@ -59,7 +65,7 @@ const App: React.FC = () => {
       }
       {
         error != '' &&
-        <div id='error' style={{ color: 'red', fontSize: '30px', fontWeight: 'bold' }}>{error}</div>
+        <div id='error' style={{ color: '#0072ff', fontSize: '30px', fontWeight: 'bold' }}>{error}</div>
       }
     </Vertical>
   );

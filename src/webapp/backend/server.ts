@@ -20,20 +20,20 @@ app.use(express.static('public'));
 // API 
 const api = Router();
 const actions = [
-  { name: 'Like', image: '/public/assets/like.png' },
-  { name: 'Comment', image: '/public/assets/comment.png' },
-  { name: 'Share', image: '/public/assets/share.png' },
-  { name: 'Subscribe', image: '/public/assets/subscribe.png' },
+  { name: 'Like', image: '/assets/like.png' },
+  { name: 'Comment', image: '/assets/comment.png' },
+  { name: 'Share', image: '/assets/share.png' },
+  { name: 'Subscribe', image: '/assets/subscribe.png' },
 ];
 api.use(express.json());
 api.use((req, res, next) => {
-  if (!req.body) res.status(400).send({ error: 'Invalid request' });
+  if (!req.body) res.status(400).send({ error: 'Invalid Request' });
   else next();
 });
 api.post('/actions', (req, res) => {
   console.log(req.body);
-  if (!req.body.key) res.status(400).send({ error: 'Invalid request' });
-  else if (req.body.key !== 'playwright') res.status(401).send({ error: 'Invalid key' });
+  if (!req.body.key) res.status(400).send({ error: 'Invalid Request' });
+  else if (req.body.key !== 'playwright') res.status(401).send({ error: 'Invalid Key' });
   else res.send(actions);
 });
 app.use('/api', api);
