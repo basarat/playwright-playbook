@@ -2,6 +2,7 @@ import * as playwright from 'playwright';
 import * as assert from 'assert';
 
 async function main() {
+  // #region create page
   const browserType = playwright.chromium;
 
   // Launch browser
@@ -14,6 +15,7 @@ async function main() {
   // Carry out actions
   const url = 'http://localhost:3000/actions';
   await page.goto(url);
+  // #endregion
 
   // Interacting
   const key = await page.$('#key');
@@ -62,7 +64,9 @@ async function main() {
     'Failed for Action Names'
   );
 
+  // #region close browser
   // Close the browser
   await browser.close();
+  // #endregion
 }
 main();
