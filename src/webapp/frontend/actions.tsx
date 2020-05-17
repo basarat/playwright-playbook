@@ -48,15 +48,15 @@ const App: React.FC = () => {
       {
         actions.length != 0 &&
         <Vertical spacing={10}>
-          <h1 style={{ margin: 0 }}>Actions 🎭</h1>
+          <h1 id="heading" style={{ margin: 0 }}>Actions 🎭</h1>
           {actions.map(action => {
             return (
-              <Horizontal id={action.name} verticalAlign='center'>
+              <Horizontal key={action.name} id={action.name} verticalAlign='center'>
                 <Content width={50} horizontalAlign='right'>
                   <img src={action.image} className={style({ height: '40px' })} />
                 </Content>
                 <Content>
-                  <div id='action-name'>{action.name}</div>
+                  <div className='action-name'>{action.name}</div>
                 </Content>
               </Horizontal>
             )
