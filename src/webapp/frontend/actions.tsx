@@ -48,7 +48,7 @@ const App: React.FC = () => {
       {
         actions.length != 0 &&
         <Vertical spacing={10}>
-          <h1 id="heading" style={{ margin: 0 }}>Actions 🎭</h1>
+          <h1 style={{ margin: 0 }}><span id="message">Actions</span> 🎭</h1>
           {actions.map(action => {
             return (
               <Horizontal key={action.name} id={action.name} verticalAlign='center'>
@@ -65,7 +65,7 @@ const App: React.FC = () => {
       }
       {
         error != '' &&
-        <div id='error' style={{ color: '#0072ff', fontSize: '30px', fontWeight: 'bold' }}>{error}</div>
+        <div id='message' style={{ color: '#0072ff', fontSize: '30px', fontWeight: 'bold' }}>{error}</div>
       }
     </Vertical>
   );
