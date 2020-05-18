@@ -6,16 +6,61 @@ async function main() {
   const browserType = playwright.chromium;
 
   // Launch browser
-  const browser = await browserType.launch();
+  const browser = await browserType.launch({ headless: false });
   // Create a context
   const context = await browser.newContext();
-  // Create a page
-  const page = await context.newPage();
-
-  // Carry out actions
-  const url = 'http://localhost:3000/actions';
-  await page.goto(url);
   // #endregion
+
+  // Create a page
+  // const page = await context.newPage();
+  // const url = 'http://localhost:3000/actions';
+  // await page.goto(url);
+
+  // page.on('request', request => {
+  //   console.log('>>', request.method(), request.url(), request.postData())
+  // });
+  // page.on('response', async response => {
+  //   console.log(' <<', response.request().url(), response.status());
+  // });
+
+  // await page.route('**/api/actions', async (route, request) => {
+  //   console.log(request.postData());
+  //   await route.continue();
+  // });
+
+  // await page.route('**/api/actions', async (route, request) => {
+  //   await route.fulfill({
+  //     status: 200,
+  //     contentType: 'application/json',
+  //     body: JSON.stringify([
+  //       { name: 'Like', image: '/assets/like.png' },
+  //       { name: 'Comment', image: '/assets/comment.png' },
+  //       { name: 'Share', image: '/assets/share.png' },
+  //       { name: 'Subscribe', image: '/assets/subscribe.png' },
+  //     ]),
+  //   });
+  // });
+
+  const getMockedPage = async () => {
+    const page = await context.newPage();
+    const url = 'http://localhost:3000/actions';
+    await page.goto(url);
+    await page.route('**/api/actions', async (route, request) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          { name: 'Like', image: '/assets/like.png' },
+          { name: 'Comment', image: '/assets/comment.png' },
+          { name: 'Share', image: '/assets/share.png' },
+          { name: 'Subscribe', image: '/assets/subscribe.png' },
+        ]),
+      });
+    });
+    return page;
+  }
+
+  const page = await getMockedPage();
 
   // Interacting
   const key = await page.$('#key');
@@ -23,25 +68,10 @@ async function main() {
   if (!key) throw new Error('no key input');
   if (!load) throw new Error('no load button');
 
-  page.on('request', request => {
-    console.log('>>', request.method(), request.url(), request.postData())
-  });
-  page.on('response', async response =>{
-    console.log('<<', response.request().url(), response.status());
-  });
-
   // Invalid request
   await key.fill('');
   await load.click();
 
-  // Invalid key
-  await key.fill('invalid key');
-  await load.click();
-
-  // Valid key
-  await key.fill('playwright');
-  await load.click();
-  
   // #region close browser
   // Close the browser
   await new Promise(res => setTimeout(res, 2000));
