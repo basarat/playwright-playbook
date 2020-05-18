@@ -85,6 +85,7 @@ async function main() {
 
   // #region close browser
   // Close the browser
+  await new Promise(res => setTimeout(res, 2000));
   await browser.close();
   // #endregion
 }
