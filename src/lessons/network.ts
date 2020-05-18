@@ -74,7 +74,7 @@ async function main() {
 
   // Invalid request
   await key.fill('');
-  // await load.click();
+  await load.click();
   // await page.waitForSelector('#message');
   await Promise.all([
     page.waitForResponse('**/api/actions'),
