@@ -27,7 +27,10 @@ async function main() {
   // Intercepting
   // await page.route('**/api/actions', async (route, request) => {
   //   console.log(request.postData());
-  //   await route.continue();
+  //   // await route.continue();
+  //   await route.continue({
+  //     postData: JSON.stringify({ key: 'playwright' }),
+  //   });
   // });
 
   // Mocking
@@ -44,6 +47,7 @@ async function main() {
   //   });
   // });
 
+  // Refresh routes
   const getMockedPage = async () => {
     const page = await context.newPage();
     const url = 'http://localhost:3000/actions';
@@ -62,7 +66,6 @@ async function main() {
     });
     return page;
   }
-
   const page = await getMockedPage();
 
   // Interacting
@@ -80,7 +83,7 @@ async function main() {
     load.click(),
   ]);
   const message = await page.$('#message');
-  console.log({ message: await message?.innerHTML() });
+  console.log('Message:', await message?.innerHTML());
 
   // #region close browser
   // Close the browser
