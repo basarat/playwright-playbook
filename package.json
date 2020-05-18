@@ -4,9 +4,11 @@
   "description": "[Video course on playwright 🎭](http://youtube.com/user/basaratali)",
   "main": "lib/lessons/index.js",
   "scripts": {
+    "build:frontend": "webpack -p",
     "serve:frontend": "webpack-dev-server -d",
     "serve:backend": "ts-node src/webapp/backend/server.ts",
-    "start": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\""
+    "start": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\"",
+    "start:nosocket": "npm run build:frontend && npm run serve:backend -- 3000"
   },
   "repository": {
     "type": "git",

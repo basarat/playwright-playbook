@@ -66,11 +66,10 @@ async function main() {
   };
   const page = await getPage();
 
-  // Interacting
+  // Load elements
   const key = await page.$('#key');
   const load = await page.$('#load');
-  if (!key) throw new Error('no key input');
-  if (!load) throw new Error('no load button');
+  if (!key || !load) throw new Error('invalid page');
 
   // Invalid request
   await key.fill('');

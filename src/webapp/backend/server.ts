@@ -38,7 +38,7 @@ api.post('/actions', (req, res) => {
 app.use('/api', api);
 
 // Start the server
-const port = 9000;
+const port = process.argv.length > 2 ? process.argv[2] : 9000;
 app.listen(port, () => {
   console.log('Server started on port:', port);
 });
