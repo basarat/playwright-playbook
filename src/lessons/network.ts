@@ -16,6 +16,7 @@ async function main() {
   // const url = 'http://localhost:3000/actions';
   // await page.goto(url);
 
+  // Monitoring
   // page.on('request', request => {
   //   console.log('>>', request.method(), request.url(), request.postData())
   // });
@@ -23,11 +24,13 @@ async function main() {
   //   console.log(' <<', response.request().url(), response.status());
   // });
 
+  // Intercepting
   // await page.route('**/api/actions', async (route, request) => {
   //   console.log(request.postData());
   //   await route.continue();
   // });
 
+  // Mocking
   // await page.route('**/api/actions', async (route, request) => {
   //   await route.fulfill({
   //     status: 200,
@@ -70,7 +73,14 @@ async function main() {
 
   // Invalid request
   await key.fill('');
-  await load.click();
+  // await load.click();
+  // await page.waitForSelector('#message');
+  await Promise.all([
+    page.waitForResponse('**/api/actions'),
+    load.click(),
+  ]);
+  const message = await page.$('#message');
+  console.log({ message: await message?.innerHTML() });
 
   // #region close browser
   // Close the browser
