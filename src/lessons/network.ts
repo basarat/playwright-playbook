@@ -13,8 +13,7 @@ async function main() {
 
   // Create a page
   // const page = await context.newPage();
-  // const url = 'http://localhost:3000/actions';
-  // await page.goto(url);
+  // await page.goto('http://localhost:3000/actions');
 
   // Monitoring
   // page.on('request', request => {
@@ -48,10 +47,8 @@ async function main() {
   // });
 
   // Refresh routes
-  const getMockedPage = async () => {
+  const getPage = async () => {
     const page = await context.newPage();
-    const url = 'http://localhost:3000/actions';
-    await page.goto(url);
     await page.route('**/api/actions', async (route, request) => {
       await route.fulfill({
         status: 200,
@@ -64,9 +61,10 @@ async function main() {
         ]),
       });
     });
+    await page.goto('http://localhost:3000/actions');
     return page;
-  }
-  const page = await getMockedPage();
+  };
+  const page = await getPage();
 
   // Interacting
   const key = await page.$('#key');
@@ -87,7 +85,6 @@ async function main() {
 
   // #region close browser
   // Close the browser
-  await new Promise(res => setTimeout(res, 2000));
   await browser.close();
   // #endregion
 }
