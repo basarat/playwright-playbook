@@ -22,9 +22,8 @@ async function main() {
   const load = await page.$('#load');
   if (!key) throw new Error('no key input');
   if (!load) throw new Error('no load button');
-
   const messageSelector = '#message';
-  const getMessageText = () => {
+  const getMessage = () => {
     const message = document.querySelector('#message');
     if (!message) throw new Error('no message');
     return message.innerHTML;
@@ -34,29 +33,27 @@ async function main() {
   await key.fill('');
   await load.click();
   await page.waitForSelector(messageSelector);
-  let text = await page.evaluate(getMessageText);
+  let text = await page.evaluate(getMessage);
   assert.equal(text, 'Invalid Request', 'Failed for Invalid Request');
-
 
   // Invalid key
   await key.fill('invalid key');
   await load.click();
   await page.waitForSelector(messageSelector);
-  text = await page.evaluate(getMessageText);
+  text = await page.evaluate(getMessage);
   assert.equal(text, 'Invalid Key', 'Failed for Invalid Key');
-
 
   // Valid key
   await key.fill('playwright');
   await load.click();
   await page.waitForSelector(messageSelector);
-  text = await page.evaluate(getMessageText);
-  assert.equal(text, 'Actions', 'Failed for Actions');
+  text = await page.evaluate(getMessage);
+  assert.equal(text, 'Actions', 'Failed for Valid Key');
 
   // Verify actions
   const actionNames = await page.evaluate(() => {
-    const actionNames = document.querySelectorAll('.action-name');
-    return Array.from(actionNames).map(name => name.innerHTML);
+    const actionsNames = document.querySelectorAll('.action-name');
+    return Array.from(actionsNames).map(name => name.innerHTML);
   });
   assert.deepEqual(
     actionNames,
