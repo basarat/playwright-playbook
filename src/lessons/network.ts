@@ -17,9 +17,9 @@ async function main() {
 
   // Monitoring
   // page.on('request', request => {
-  //   console.log('>>', request.method(), request.url(), request.postData())
+  //   console.log('>>', request.method(), request.url(), request.postData());
   // });
-  // page.on('response', async response => {
+  // page.on('response', response => {
   //   console.log(' <<', response.request().url(), response.status());
   // });
 
