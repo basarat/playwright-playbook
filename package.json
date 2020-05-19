@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/basarat/playwright-playbook#readme",
   "dependencies": {
-    "playwright": "1.0.1"
+    "playwright": "1.0.2"
   },
   "devDependencies": {
     "@types/express": "4.17.6",
