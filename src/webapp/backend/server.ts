@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import basicAuth from 'express-basic-auth';
+import fileUpload from 'express-fileupload';
 
 // Create app
 const app = express();
@@ -34,6 +35,19 @@ api.post('/actions', (req, res) => {
   if (!req.body.key) res.status(400).send({ error: 'Invalid Request' });
   else if (req.body.key !== 'playwright') res.status(401).send({ error: 'Invalid Key' });
   else res.send(actions);
+});
+api.use('/upload', fileUpload(), (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send({ error: 'No files were uploaded' });
+  }
+  const imageFile = req.files.imageFile;
+  if (Array.isArray(imageFile)) {
+    return res.status(400).send({ error: 'Only a single image file is allowed' });
+  }
+  imageFile.mv('./public/upload/imageFile.png', function (err) {
+    if (err) return res.status(500).send(err);
+    else return res.send({ status: 'success' });
+  });
 });
 app.use('/api', api);
 
