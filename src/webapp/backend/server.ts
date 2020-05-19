@@ -44,7 +44,7 @@ api.use('/upload', fileUpload(), (req, res) => {
   if (Array.isArray(imageFile)) {
     return res.status(400).send({ error: 'Only a single image file is allowed' });
   }
-  imageFile.mv('./public/upload/imageFile.png', function (err) {
+  imageFile.mv('./public/uploaded/imageFile.png', function (err) {
     if (err) return res.status(500).send(err);
     else return res.send({ status: 'success' });
   });

@@ -2,6 +2,7 @@ module.exports = {
   entry: {
     index: './src/webapp/frontend/index.tsx',
     actions: './src/webapp/frontend/actions.tsx',
+    upload: './src/webapp/frontend/upload.tsx',
   },
   output: {
     path: __dirname + '/public',
