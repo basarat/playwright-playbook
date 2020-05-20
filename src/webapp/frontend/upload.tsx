@@ -8,64 +8,79 @@ cssRaw('body {font-family: Arial}');
 
 const uploadEndpoint = 'http://localhost:3000/api/upload';
 
-const App: React.FC = () => {
-  const [key, setKey] = React.useState('');
-  const [actions, setActions] = React.useState<{ name: string, image: string }[]>([]);
-  const [error, setError] = React.useState<string>('');
-  const onKeyChange = React.useCallback((key: string) => {
-    setActions([]);
-    setError('');
-    setKey(key);
-  }, [key]);
-  const onLoadActions = React.useCallback(async () => {
-    const res = await fetch(uploadEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key })
-    });
-    const body = await res.json();
-    if (body.error) {
-      setError(body.error);
-    } else {
-      setActions(body);
+const FileInput = ({ value, onChange }: { value: File | null, onChange: (file: File | null) => void }) => (
+  <Horizontal verticalAlign='center'>
+    <label>
+      <div style={{ padding: '20px', border: '1px dashed black', cursor: 'pointer' }}>
+        Click to select some file
+      </div>
+      <input
+        style={{ display: "none" }}
+        type="file"
+        accept="image/*"
+        multiple={false}
+        onChange={e => {
+          onChange(e.target.files == null ? null : e.target.files[0]);
+        }}
+      />
+    </label>
+    {value &&
+      <div>Selected file: {value.name}</div>
     }
-  }, [key, error]);
+  </Horizontal>
+);
+
+const App: React.FC = () => {
+  const [value, onChange] = React.useState<File | null>(null);
+  const [error, setError] = React.useState<string>('');
+  const [uploadedImage, setUploadedImage] = React.useState<string>('');
+
+  const submitFile = async () => {
+    if (!value) {
+      setError('No file selected');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('imageFile', value);
+    const response = await fetch(uploadEndpoint, {
+      method: 'POST',
+      body: formData
+    });
+    const body = await response.json();
+    if ('error' in body) {
+      setError(error);
+      return;
+    }
+    setUploadedImage(body.path);
+  };
 
   return (
     <Vertical padding={20} spacing={12}>
-      <form onSubmit={e => {
-        e.preventDefault();
-        onLoadActions();
-      }}>
-        <Horizontal verticalAlign='bottom'>
-          <Vertical spacing={5}>
-            <label htmlFor='key'>Key</label>
-            <input id='key' value={key} onChange={e => onKeyChange(e.target.value)} />
-          </Vertical>
-          <button id='load'>Load</button>
-        </Horizontal>
-      </form>
-      {
-        actions.length != 0 &&
-        <Vertical spacing={10}>
-          <h1 style={{ margin: 0 }}><span id="message">Actions</span> 🎭</h1>
-          {actions.map(action => {
-            return (
-              <Horizontal key={action.name} id={action.name} verticalAlign='center'>
-                <Content width={50} horizontalAlign='right'>
-                  <img src={action.image} className={style({ height: '40px' })} />
-                </Content>
-                <Content>
-                  <div className='action-name'>{action.name}</div>
-                </Content>
-              </Horizontal>
-            )
-          })}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitFile();
+        }}
+        id='uploadForm'
+        method='post'
+        encType="multipart/form-data">
+        <Vertical horizontalAlign='left'>
+          <FileInput value={value} onChange={(e) => {
+            setError('');
+            onChange(e);
+          }} />
+          <input type='submit' value='Upload!' />
         </Vertical>
-      }
+      </form>
       {
         error != '' &&
         <div id='message' style={{ color: '#0072ff', fontSize: '30px', fontWeight: 'bold' }}>{error}</div>
+      }
+      {
+        uploadedImage != '' &&
+        <Content>
+          <img src={uploadedImage} style={{ maxWidth: '500px' }} />
+        </Content>
       }
     </Vertical>
   );

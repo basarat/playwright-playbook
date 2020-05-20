@@ -46,7 +46,10 @@ api.use('/upload', fileUpload(), (req, res) => {
   }
   imageFile.mv('./public/uploaded/imageFile.png', function (err) {
     if (err) return res.status(500).send(err);
-    else return res.send({ status: 'success' });
+    else return res.send({
+      status: 'success',
+      path: '/uploaded/imageFile.png'
+    });
   });
 });
 app.use('/api', api);
