@@ -15,9 +15,9 @@ const FileInput = ({ value, onChange }: { value: File | null, onChange: (file: F
         Click to select some file
       </div>
       <input
-        style={{ display: "none" }}
-        type="file"
-        accept="image/*"
+        style={{ display: 'none' }}
+        type='file'
+        accept='image/*'
         multiple={false}
         onChange={e => {
           onChange(e.target.files == null ? null : e.target.files[0]);
@@ -63,13 +63,13 @@ const App: React.FC = () => {
         }}
         id='uploadForm'
         method='post'
-        encType="multipart/form-data">
+        encType='multipart/form-data'>
         <Vertical horizontalAlign='left'>
           <FileInput value={value} onChange={(e) => {
             setError('');
             onChange(e);
           }} />
-          <input type='submit' value='Upload!' />
+          <input id='upload' type='submit' value='Upload' />
         </Vertical>
       </form>
       {
@@ -78,9 +78,12 @@ const App: React.FC = () => {
       }
       {
         uploadedImage != '' &&
-        <Content>
-          <img src={uploadedImage} style={{ maxWidth: '500px' }} />
-        </Content>
+        <Vertical spacing={10}>
+          <h1 style={{ margin: 0 }} id='message'>Uploaded</h1>
+          <Content>
+            <img id='uploaded' src={uploadedImage} style={{ maxWidth: '500px' }} />
+          </Content>
+        </Vertical>
       }
     </Vertical>
   );
@@ -88,5 +91,5 @@ const App: React.FC = () => {
 
 ReactDOM.render(
   <App />,
-  document.getElementById("root")
+  document.getElementById('root')
 );
