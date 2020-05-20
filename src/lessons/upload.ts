@@ -21,13 +21,14 @@ async function main() {
 
   // Set the file
   await fileInput.setInputFiles('./public/assets/upload.png');
+  // await page.setInputFiles('input[type=file]', './public/assets/upload.png');
 
   // Upload
   await uploadButton.click();
 
   // Verify that uploaded
   await page.waitForSelector('#message');
-  const message = await page.$('#message')
+  const message = await page.$('#message');
   assert.equal(await message?.innerHTML(), 'Uploaded', 'File upload failed');
 
   // #region close browser
