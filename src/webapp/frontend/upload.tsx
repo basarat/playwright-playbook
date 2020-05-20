@@ -11,7 +11,7 @@ const uploadEndpoint = 'http://localhost:3000/api/upload';
 const FileInput = ({ value, onChange }: { value: File | null, onChange: (file: File | null) => void }) => (
   <Horizontal verticalAlign='center'>
     <label>
-      <div style={{ padding: '20px', border: '1px dashed black', cursor: 'pointer' }}>
+      <div style={{ padding: '20px', border: '1px dashed black', cursor: 'pointer', userSelect: 'none' }}>
         Click to select some file
       </div>
       <input
