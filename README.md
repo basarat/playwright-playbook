@@ -1,5 +1,5 @@
 # Videos
-[Video course on playwright 🎭](http://youtube.com/user/basaratali)
+[Video course on playwright 🎭](https://www.youtube.com/watch?v=Vz1jMutEAMA&list=PLYvdvJlnTOjEu-Zp9YH3hutPmuFURp2pq)
 
 # Source Code
 [Individual lesson content under src/lessons](./src/lessons)
